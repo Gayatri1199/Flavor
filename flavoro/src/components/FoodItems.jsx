@@ -2,6 +2,7 @@ import React from 'react'
 import FoodCard from './FoodCard'
 import FoodData from '../data/FoodData'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
 const FoodItemsStyle = styled.div`
     display:flex;
@@ -16,14 +17,33 @@ const FoodItemsStyle = styled.div`
 `;
 
 const FoodItems = () => {
+    const category = useSelector((state)=>state.category.category)
+    console.log("Cat==>",category);
   return (
     <FoodItemsStyle>
         <h2>Super Delicious Deal</h2>
         {
-            FoodData.map((foodItem)=>{
+            FoodData.filter((foodItem)=>{
+                console.log("FoodItems==>",foodItem);
+                if(category==="All"){
+                      console.log("FoodItems==> in if",foodItem);
+                     
+                    return foodItem;
+                    
+                }else{
+                      console.log("FoodItems==> in else",foodItem);
+                    return category===foodItem.category;
+                }
+            }).map((foodItem)=>{
                 return <FoodCard item={foodItem} key={foodItem.id}/>
             })
         }
+
+        {/* {
+            FoodData.map((foodItem)=>{
+                return <FoodCard item={foodItem} key={foodItem.id}/>
+            })
+        } */}
         </FoodItemsStyle>
   )
 }

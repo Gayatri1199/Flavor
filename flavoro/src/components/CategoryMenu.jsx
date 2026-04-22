@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import FoodData from '../data/FoodData';
+import {useDispatch, useSelector} from 'react-redux';
+import { setCategory } from '../redux/slices/CategorySlice';
 
 const CategoryMenuStyle = styled.div`
     max-width:670px;
@@ -18,6 +20,11 @@ const CategoryMenuStyle = styled.div`
         background:#fff;
         border-radius:100%; 
         cursor:pointer;
+        &.active{
+            span{
+                font-weight:bold;
+            }
+        }
         &:hover{
             img{
                 scale:1.2;
@@ -32,6 +39,7 @@ const CategoryMenuStyle = styled.div`
             display:block;
             margin-top:16px;
             font-weight:700;
+
         }
     }
 `;
@@ -46,12 +54,20 @@ const CategoryMenu = () => {
 
     useEffect(()=>{
         listUniqueCategories();
-
+        console.log("ABC",categories);
     },[])
+
+    const dispatch = useDispatch();
+    const selectedCategory = useSelector((state)=>state.category.category)
+    console.log("SC",selectedCategory)
   return (
     <CategoryMenuStyle>
+       <div className={`category ${selectedCategory === "All" ? "active" : ""}`}   onClick={() => dispatch(setCategory("All"))}>
+            <img src="https://mozzu-html.themedox.com/assets/img/home-1/popular-items1.jpg" alt='Category Image'/>
+            <span>All</span>
+            </div>
         {categories.map((category,index)=>{
-            return(<div className='category' key={index}>
+            return(<div className={`category ${selectedCategory === category ? "active" : ""}`} key={index} onClick={()=>{dispatch(setCategory(category))}}>
             <img src="https://mozzu-html.themedox.com/assets/img/home-1/popular-items1.jpg" alt='Category Image'/>
             <span>{category}</span>
         </div>);
