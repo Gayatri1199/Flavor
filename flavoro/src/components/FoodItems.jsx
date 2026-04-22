@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 const FoodItemsStyle = styled.div`
     display:flex;
     flex-wrap:wrap;
-    gap:60px;
+    gap:50px;
     row-gap:0;
     margin-top:40px;
     h2{
@@ -17,22 +17,23 @@ const FoodItemsStyle = styled.div`
 `;
 
 const FoodItems = () => {
-    const category = useSelector((state)=>state.category.category)
-    console.log("Cat==>",category);
+    const category = useSelector((state)=>state.category.category);
+    const search =  useSelector((state)=>state.search.search);
+    console.log("Cat==>",search);
   return (
     <FoodItemsStyle>
         <h2>Super Delicious Deal</h2>
         {
             FoodData.filter((foodItem)=>{
-                console.log("FoodItems==>",foodItem);
+                // console.log("FoodItems==>",foodItem);
                 if(category==="All"){
-                      console.log("FoodItems==> in if",foodItem);
+                      console.log("FoodItems==> in if",foodItem.name.toLowerCase().includes(search.toLowerCase()));
                      
-                    return foodItem;
+                    return foodItem.name.toLowerCase().includes(search.toLowerCase());
                     
                 }else{
-                      console.log("FoodItems==> in else",foodItem);
-                    return category===foodItem.category;
+                      console.log("FoodItems==> in else",category===foodItem.category && foodItem.name.toLowerCase().includes(search.toLowerCase()));
+                    return category===foodItem.category && foodItem.name.toLowerCase().includes(search.toLowerCase());
                 }
             }).map((foodItem)=>{
                 return <FoodCard item={foodItem} key={foodItem.id}/>

@@ -4,6 +4,9 @@ import heroBgfirst from '../assets/home-shape-start.webp'
 import heroBgEnd from '../assets/home-shape-end.webp'
 import styled from 'styled-components';
 import CategoryMenu from './CategoryMenu';
+import { useDispatch, useSelector } from 'react-redux';
+import { openCart } from '../redux/slices/uiSlice';
+import { setSearch } from '../redux/slices/searchSlice';
 
 const HeroBannerStyle = styled.div`
 position:relative;
@@ -83,17 +86,45 @@ img{
             }
     }
 }
+
+.cart{
+    position: absolute;
+    color: #fff;
+    top: 16px;
+    font-size: 25px;
+    right: 16px;
+}
+
+.cart-icon{
+    width:10px;
+    height:10px;
+    padding:10px;
+    display:flex;
+    background:#fff;
+    border-radius:30px;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
 `;
 const HeroBanner = () => {
+    const cartItems = useSelector((state) => state.cart.cart);
+    const totalQty = cartItems.reduce((totalQty,item)=>totalQty+item.qty,0);
+    const dispatch = useDispatch();
   return (
     <HeroBannerStyle> 
     <div className='hero-banner'>
+        <span className='cart-icon' onClick={()=>{dispatch(openCart())}}><i class="fa-solid fa-cart-shopping cart"></i> <span>{totalQty}</span></span>
+        
         <div className='content'>
              <h4>Explore top-rated attractions, activities and more</h4>
              <h2>Fast Delivery. Zero Hassle.</h2>
              <div className='input-section'>
                 <i class="fa-solid fa-location-crosshairs"></i>
-                <input type='search' name="search" id="" placeholder='Search Here' autoComplete='off'/>
+                <input type='search' name="search" id="" placeholder='Search Here' autoComplete='off' onChange={(e)=>{dispatch(setSearch(e.target.value))}}/>
                 <button><i class="fa-solid fa-magnifying-glass"></i>Search</button>
             </div>
             <div className='category-section'>

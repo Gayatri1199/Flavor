@@ -62,7 +62,8 @@ const CategoryMenu = () => {
     console.log("SC",selectedCategory)
   return (
     <CategoryMenuStyle>
-       <div className={`category ${selectedCategory === "All" ? "active" : ""}`}   onClick={() => dispatch(setCategory("All"))}>
+       <div className={`category ${selectedCategory === "All" ? "active" : ""}`}   onClick={() => dispatch(setCategory("All"))}
+>
             <img src="https://mozzu-html.themedox.com/assets/img/home-1/popular-items1.jpg" alt='Category Image'/>
             <span>All</span>
             </div>

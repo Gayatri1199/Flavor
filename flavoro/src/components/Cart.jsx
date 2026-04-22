@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { decrementQty, incrementQty, removeFromCart } from "../redux/slices/CartSlice";
+import { closeCart } from "../redux/slices/uiSlice";
 
 const CartStyle = styled.div`
   width: 450px;
@@ -9,8 +10,13 @@ const CartStyle = styled.div`
   position: fixed;
   background: #fff;
   top: 0;
-  right: 0;
+  right: -1000px;
   z-index: 1;
+  &.active{
+    right:0px;
+  }
+
+
 
 
 
@@ -78,16 +84,18 @@ const CartStyle = styled.div`
 `;
 
 const Cart = () => {
-  const [active,setActive] = useState(false);
+ 
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cart);
   const totalQty = cartItems.reduce((totalQty,item)=>totalQty+item.qty,0)
    const totalPrice = cartItems.reduce((totalPrice,item)=>totalPrice+item.qty*item.price,0)
   // const cartItems = useSelector((state) => state);
   console.log("Items from Cart==>", cartItems,totalQty);
+  const isCartOpen = useSelector((state) => state.ui.isCartOpen);
+ 
 
   return (
-  <CartStyle>
+  <CartStyle className={`${isCartOpen ? "active" : ""}`}>
     <h2>{totalQty} Item{totalQty>1?"s":""}</h2>
     {cartItems.map((cartItem) => (
      <div key={cartItem.id} id={cartItem.id} className="item-card">{
@@ -118,7 +126,7 @@ const Cart = () => {
     <div className="total">
       <div className="">Total Items:{totalQty}</div>
        <div className="">Total:₹ {totalPrice}</div>
-      <button className="btn" onClick={()=>{setActive(!active)}}>Checkout</button>
+      <button className="btn" onClick={() => dispatch(closeCart())}>Checkout</button>
     </div>
   </CartStyle>
 );

@@ -120,3 +120,8 @@ code {
 .px-32{
   padding:0 32px;
 }
+
+#root{
+  max-width:1440px;
+  margin: auto;
+}
