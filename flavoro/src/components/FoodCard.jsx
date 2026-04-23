@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/slices/CartSlice';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const FoodCardStyle = styled.div`
   max-width:300px;
@@ -69,6 +71,9 @@ const FoodCardStyle = styled.div`
 const FoodCard = ({item}) => {
  const {id,img,name,price,desc,rating} = item
  const dispatch = useDispatch();
+  const HandleToast=(name)=>{
+        toast.success(`Added ${name} to the Cart`)
+  }
   return (
     <FoodCardStyle>
       <div className='img-content'><img src={img} alt="Food Image"/></div>
@@ -77,11 +82,12 @@ const FoodCard = ({item}) => {
           <div className='upper-content'> <h3>{name}</h3>
             <span>₹ {price}</span></div>
            
-            <p>{desc}</p>
+            <p>{desc}</p><span>Read More</span>
             <div className='ratings'>
               <span><i class="fa-solid fa-star"></i>{rating}</span> <button onClick={()=> 
               {
-                dispatch(addToCart({ id, name, price, rating,img,qty:1 }))
+                dispatch(addToCart({ id, name, price, rating,img,qty:1 }));
+                HandleToast(name);
               }
             }
                 
