@@ -6,6 +6,7 @@ import { setCategory } from '../redux/slices/CategorySlice';
 
 const CategoryMenuStyle = styled.div`
     max-width:670px;
+    overflow:auto;
     margin:auto;
     position:relative;
     z-index:1;
@@ -13,7 +14,9 @@ const CategoryMenuStyle = styled.div`
     justify-content: center;
     gap: 30px;
     margin-top: 40px;
+    min-height:130px;
     .category{
+        min-width:90px;
         width:90px;
         height:90px;
         padding:15px;

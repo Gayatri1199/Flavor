@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/slices/CartSlice';
@@ -6,10 +6,16 @@ import toast, { Toaster } from 'react-hot-toast';
 
 
 const FoodCardStyle = styled.div`
-  max-width:300px;
+
   width:100%;
   cursor:pointer;
   margin-bottom:16px;
+  @media screen and (min-width:768px){
+    max-width:calc(100%/2 - 40px);
+  }
+   @media screen and (min-width:1260px){
+    max-width:calc(100%/4 - 40px);
+  } 
   img{
     width:100%;
     height:100%;
@@ -17,9 +23,16 @@ const FoodCardStyle = styled.div`
   }
 
   .img-content{
-    height:250px;
-    width:300px;
+   
     margin-bottom:20px;
+    @media screen and (min-width:768px){
+    height:auto;
+    width:auto;
+  }
+
+   @media screen and (min-width:1260px){
+    height:304px;
+  }
 
   }
   .upper-content{
@@ -42,6 +55,9 @@ const FoodCardStyle = styled.div`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
       margin-bottom:16px;
+      &.showDesc{
+        display: block;
+      }
     }
   }
 
@@ -70,6 +86,7 @@ const FoodCardStyle = styled.div`
 
 const FoodCard = ({item}) => {
  const {id,img,name,price,desc,rating} = item
+ const [showDesc,setShowDesc] = useState(false);
  const dispatch = useDispatch();
   const HandleToast=(name)=>{
         toast.success(`Added ${name} to the Cart`)
@@ -82,7 +99,7 @@ const FoodCard = ({item}) => {
           <div className='upper-content'> <h3>{name}</h3>
             <span>₹ {price}</span></div>
            
-            <p>{desc}</p><span>Read More</span>
+            <p className={`${showDesc ? "showDesc" :""}`}>{desc}</p><span onClick={()=>{setShowDesc(!showDesc)}}>Read {showDesc ? "Less" :"More"}</span>
             <div className='ratings'>
               <span><i class="fa-solid fa-star"></i>{rating}</span> <button onClick={()=> 
               {

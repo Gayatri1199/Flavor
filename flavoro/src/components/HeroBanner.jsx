@@ -16,6 +16,10 @@ img{
 .hero-banner{
     position:relative;
     overflow:hidden;
+    height:500px;
+     @media screen and (min-width:768px){
+        height:500px;
+    }
     .content{
             position: absolute;
             width: 100%;
@@ -26,23 +30,35 @@ img{
                 font-size:24px;
             }
             h2{
-                font-size:50px;
+                font-size:30px;
                 font-weight:800;
+                @media screen and (min-width:768px){
+                     font-size:50px;
+                }
             }
     }
     
     .hero-bg-first{
-           width: 40%;
+           width: 60%;
             position: absolute;
             left: -120px;
             bottom: -60px;
+             @media screen and (min-width:1260px){
+        
+         width:30%;
+        }
     }
 
     .hero-bg-last{
-        width:30%;
+        width:50%;
         position:absolute;
         right:0;
         bottom:0;
+        
+         @media screen and (min-width:1260px){
+        
+         width:30%;
+        }
     }
 
     .input-section{
@@ -109,6 +125,14 @@ img{
     justify-content: center;
     font-size: 12px;
 }
+.hero-bg{
+     height:100%;
+        object-fit:cover;
+    @media screen and (min-width:768px){
+        height:100%;
+        object-fit:cover;
+    }
+}
 `;
 const HeroBanner = () => {
     const cartItems = useSelector((state) => state.cart.cart);
@@ -132,7 +156,7 @@ const HeroBanner = () => {
             </div>
              
         </div>
-        <img src={heroBg} alt="hero banner" />
+        <img src={heroBg} alt="hero banner" className='hero-bg'/>
         <img src={heroBgfirst} alt="hero banner" className='hero-bg-first'/>
         <img src={heroBgEnd} alt="hero banner" className='hero-bg-last'/>
         </div>

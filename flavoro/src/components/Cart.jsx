@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { decrementQty, incrementQty, removeFromCart } from "../redux/slices/CartSlice";
@@ -6,7 +6,7 @@ import { closeCart } from "../redux/slices/uiSlice";
 import toast from "react-hot-toast";
 
 const CartStyle = styled.div`
-  width: 450px;
+  width: 95%;
   height: 100vh;
   position: fixed;
   background: #fff;
@@ -15,6 +15,9 @@ const CartStyle = styled.div`
   z-index: 1;
   &.active{
     right:0px;
+  }
+  @media screen and (min-width:768px){
+   width: 450px;
   }
   h2{
     font-size:24px;
@@ -69,7 +72,11 @@ const CartStyle = styled.div`
   }
 
   .total{
-    padding:16px;
+   
+    padding: 16px;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
   }
 
   .qty{
@@ -131,7 +138,7 @@ const Cart = () => {
        <div className="">Total:₹ {totalPrice}</div>
       <button className="btn" onClick={() => dispatch(closeCart())}>Checkout</button>
     </div>
-    <i class="fa-solid fa-xmark cross-mark"></i>
+    <i class="fa-solid fa-xmark cross-mark" onClick={() => dispatch(closeCart())}></i>
   </CartStyle>
 );
 };

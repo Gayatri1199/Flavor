@@ -9,9 +9,15 @@ import toast, { Toaster } from 'react-hot-toast';
 const FoodItemsStyle = styled.div`
     display:flex;
     flex-wrap:wrap;
-    gap:50px;
+   
     row-gap:0;
     margin-top:40px;
+    @media screen and (min-width:768px){
+         gap:70px;
+    }
+    @media screen and (min-width:1260px){
+         gap:50px;
+    }
     h2{
         width:100%;
         font-size:34px;
