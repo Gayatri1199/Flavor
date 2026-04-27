@@ -30,7 +30,7 @@ const FoodItems = () => {
     const HandleToast=()=>{
         toast.success("Item Added to the Cart")
     }
-    console.log("Cat==>",search);
+ 
   return (
     <FoodItemsStyle>
         <h2>Super Delicious Deal</h2>
@@ -40,14 +40,12 @@ const FoodItems = () => {
         />
         {
             FoodData.filter((foodItem)=>{
-                // console.log("FoodItems==>",foodItem);
+              
                 if(category==="All"){
-                      console.log("FoodItems==> in if",foodItem.name.toLowerCase().includes(search.toLowerCase()));
                      
                     return foodItem.name.toLowerCase().includes(search.toLowerCase());
                     
                 }else{
-                      console.log("FoodItems==> in else",category===foodItem.category && foodItem.name.toLowerCase().includes(search.toLowerCase()));
                     return category===foodItem.category && foodItem.name.toLowerCase().includes(search.toLowerCase());
                 }
             }).map((foodItem)=>{

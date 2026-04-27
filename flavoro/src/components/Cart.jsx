@@ -97,8 +97,7 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cart);
   const totalQty = cartItems.reduce((totalQty,item)=>totalQty+item.qty,0)
    const totalPrice = cartItems.reduce((totalPrice,item)=>totalPrice+item.qty*item.price,0)
-  // const cartItems = useSelector((state) => state);
-  console.log("Items from Cart==>", cartItems,totalQty);
+ 
   const isCartOpen = useSelector((state) => state.ui.isCartOpen);
  
 

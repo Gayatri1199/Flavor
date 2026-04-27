@@ -52,17 +52,17 @@ const CategoryMenu = () => {
     const listUniqueCategories = ()=>{
         const uniqueCategories = [...new Set(FoodData.map((food)=>food.category))];
         setCategories(uniqueCategories);
-        console.log("ABC",categories,uniqueCategories)
+      
     }
 
     useEffect(()=>{
         listUniqueCategories();
-        console.log("ABC",categories);
+       
     },[])
 
     const dispatch = useDispatch();
     const selectedCategory = useSelector((state)=>state.category.category)
-    console.log("SC",selectedCategory)
+
   return (
     <CategoryMenuStyle>
        <div className={`category ${selectedCategory === "All" ? "active" : ""}`}   onClick={() => dispatch(setCategory("All"))}
